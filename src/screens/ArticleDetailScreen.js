@@ -1,4 +1,4 @@
-import {View,Text,ScrollView,TouchableOpacity,Image,StyleSheet,} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wp,
@@ -33,39 +33,57 @@ export default function ArticleDetailScreen(props) {
     >
       {/* Article Image */}
       <View style={styles.imageContainer} testID="imageContainer">
-         
+        <Image
+          source={{ uri: article.thumbnail }}
+          style={styles.articleImage}
+        />
       </View>
 
       {/* Back Button and Favorite Button */}
-                 
+      <View style={styles.topButtonsContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Text>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleToggleFavorite}
+          style={[
+            styles.favoriteButton,
+            {
+              backgroundColor: "white",
+            },
+          ]}
+        >
+          <Text>{isFavourite ? "♥" : "♡"}</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Article Description */}
-  
-        <View style={styles.contentContainer}>
-          {/* Title and Category */}
-          <View
-            style={styles.articleDetailsContainer}
-            testID="articleDetailsContainer"
-          >
-            <Text style={styles.articleTitle} testID="articleTitle">
-         
-             
-              
-              </Text>
-            <Text style={styles.articleCategory} testID="articleCategory">
-                         
-              </Text>
-          </View>
-
-          {/* Description */}
-          <View
-            
-            style={styles.sectionContainer}
-            testID="sectionContainer"
-          >
-          
-          </View>
+      <View style={styles.contentContainer}>
+        {/* Title and Category */}
+        <View
+          style={styles.articleDetailsContainer}
+          testID="articleDetailsContainer"
+        >
+          <Text style={styles.articleTitle} testID="articleTitle">
+            {article.title}
+          </Text>
+          <Text style={styles.articleCategory} testID="articleCategory">
+            {article.category}
+          </Text>
         </View>
+
+        {/* Description */}
+        <View
+          style={styles.sectionContainer}
+          testID="sectionContainer"
+        >
+          <Text style={styles.sectionTitle}>Description</Text>
+          <Text style={styles.descriptionText}>{article.description}</Text>
+        </View>
+      </View>
     </ScrollView>
   );
 }
